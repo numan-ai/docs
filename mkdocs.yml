@@ -1,4 +1,4 @@
-site_name: Numan Docs
+site_name: Numan Documenation
 site_url: https://docs.numan.ai/
 site_description: Numan Documenation
 site_author: Numan Team
@@ -18,9 +18,14 @@ theme:
 
 nav:
   - Home: index.md
+  - Knowledge Base: 
+    - About: kb/index.md
+  - Literature:
+    - Literature: literature/index.md
+
+
+extra_css:
+  - css/extra.css
 
 exclude_docs: |
   *.py
-
-plugins:
-  - search
