@@ -1,2 +1,2 @@
-# Yago 4.5 Paper
+# YAGO 4.5 Paper
 
