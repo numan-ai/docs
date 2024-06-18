@@ -22,6 +22,7 @@ nav:
     - About: kb/index.md
   - Literature:
     - Literature: literature/index.md
+    - Yago 4.5: literature/yago45.md
 
 
 extra_css:
