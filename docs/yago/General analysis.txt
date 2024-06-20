@@ -1,0 +1,34 @@
+
+	YAGO
+YAGO is a centrally controlled large general-purpose knowledge base. Due to such control, the data's quality has some guarantees.
+
+YAGO gets its data from wikidata following a custom version of schema.org's ontology
+
+YAGO targets the reasoning formalism OWL DL
+
+top-level taxonomy: Perfect, formal, basic.
+lower-level taxonomy: Less formal, easy to read, big
+
+YAGO doesn't appear to have any patterns like we do. What it has is its taxonomy, a hierarchical organization from general to specific.
+
+YAGO however, has also tried to solve some ambiguity-related issues, they said they used a dataset called "BLINK".
+
+Taxonomy:
+        ...]-> (a) -[is a]-> (b) -[...
+        where a and b are classes, so we have subclasses, each more specific than the other
+        (a) -[property]-> (b)
+        that's how properties are dealt with in YAGO
+
+OWL: Web ontology language
+
+        Links:
+YAGO Github: https://github.com/yago-naga/yago-4.5
+YAGO Website: https://yago-knowledge.org/
+        In the Browse/Query part you can select either and explore the database
+YAGO Last paper: https://suchanek.name/work/publications/sigir-2024.pdf
+YAGO 4.5 overwiew of top-level taxonomy: https://yago-knowledge.org/data/yago4.5/design-document.pdf
+YAGO 4.5 actual top-level taxonomy: https://yago-knowledge.org/schema
+SPARQL API: https://yago-knowledge.org/sparql
+        YAGO has an API so you can use the database w/o downloading it, however, it's capped to 1 minute per usage, if you plan on using it quicker. You'll have to download it.
+
+Schema.org: https://schema.org/docs/documents.html
