@@ -1,0 +1,21 @@
+.search-results {
+    display: none;
+}
+
+#book-search-input {
+    display: none;
+}
+
+ul.summary li:nth-last-child(1) a, ul.summary li:nth-last-child(2) a {
+    opacity: 0.3;
+    padding: 5px 15px;
+    font-size: 0.9em;
+}
+
+ul.summary li:first-child {
+    margin-top: 10px;
+}
+
+.header {
+    /* text-transform: initial !important; */
+}
