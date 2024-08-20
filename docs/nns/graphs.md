@@ -8,13 +8,13 @@ In neural networks we can represent categorical values with one-hot encoding, bu
 
 Let's say we have a graph with four nodes (A, B, C, D):
 
-<img src="/assets/nn_to_graph1.png"/>
+<div style="text-align: center"><img src="/assets/nn_to_graph1.png" width="400"></div>
 
 And now we want our neural network to be able to point at one of them.
 We can do this by outputing two float numbers from 0 to 1.
 Let's say the model gave us numbers 0.45 and 0.65, we can use them to uniquely identify a node in the graph:
 
-<img src="/assets/nn_to_graph2.png"/>
+<div style="text-align: center"><img src="/assets/nn_to_graph2.png" width="400"></div>
 
 We used a two-dimentional space for the graph, but we can add more axis by adding more floaing numbers to the model output.
 And we can also divide the 0-1 interval into more parts. Here we divided it into only two parts.
