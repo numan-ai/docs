@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Graph Neural Networks - Numan Documenation</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Numan Documenation">
+<meta name="generator" content="mkdocs-1.6.0, mkdocs-gitbook-1.0.7">
+<meta name="author" content="Numan Team">
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../../css/style.min.css" rel="stylesheet">
+<link href="../../css/extra.css" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search" />
+</div> <!-- end of book-search-input -->
+
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href="../.." target="_blank" class="custom-link">Numan Documenation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="../..">Home</a>
+<li class="header">Knowledge Base</li>
+
+<li>
+<a href="../../kb/" class="">About</a>
+</li>
+
+<li class="header">Literature</li>
+
+<li>
+<a href="../../literature/" class="">Literature</a>
+</li>
+
+<li>
+<a href="../../literature/yago45/" class="">YAGO 4.5</a>
+</li>
+
+<li class="header">Neural Networks</li>
+
+<li>
+<a href="../" class="">Motivation</a>
+</li>
+
+<li>
+<a href="./" class="active">Graph Neural Networks</a>
+</li>
+
+<li class="divider"></li>
+
+
+
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
+
+</nav>
+
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="adding-graphs-to-nns">Adding Graphs to NNs</h1>
+<p>In order for a neural network to work with a graph it needs to be able to address nodes in that graph.
+For example if we want to add a property to a node we need to know to which node we are adding it.
+In regular programs we do it via the node id. Node ids are categorical, meaning that if we have ids 1, 2, 7
+all we can say is that they are distinct, distance betwen the numbers give us no information.
+In neural networks we can represent categorical values with one-hot encoding, but there is a better way.</p>
+<p>Let's say we have a graph with four nodes (A, B, C, D):</p>
+<div style="text-align: center"><img src="/assets/nn_to_graph1.png" width="400"></div>
+
+<p>And now we want our neural network to be able to point at one of them.
+We can do this by outputing two float numbers from 0 to 1.
+Let's say the model gave us numbers 0.45 and 0.65, we can use them to uniquely identify a node in the graph:</p>
+<div style="text-align: center"><img src="/assets/nn_to_graph2.png" width="400"></div>
+
+<p>We used a two-dimentional space for the graph, but we can add more axis by adding more floaing numbers to the model output.
+And we can also divide the 0-1 interval into more parts. Here we divided it into only two parts.</p>
+<p>Having 5 axis and diving each one into 10 parts will give us 10 ** 5 = 100,000 possible node indices.
+This approach is better because we want to store concepts in this graph and concepts can be related to each other.
+Indexing nodes with vectors allows to use vector Euclidean distance as a measure of concept similarity, meaning
+that if two concepts are located in a similar position, they have a similar meaning.</p>
+
+
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+
+<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+<ul class="search-results-list"></ul>
+
+</div> <!-- end of has-results -->
+<div class="no-results">
+
+<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../../js/main.js"></script>
+<script src="../../search/main.js"></script>
+<script src="../../js/gitbook.min.js"></script>
+<script src="../../js/theme.min.js"></script>
+</body>
+</html>

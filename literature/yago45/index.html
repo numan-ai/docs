@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>YAGO 4.5 - Numan Documenation</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Numan Documenation">
+<meta name="generator" content="mkdocs-1.6.0, mkdocs-gitbook-1.0.7">
+<meta name="author" content="Numan Team">
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../../css/style.min.css" rel="stylesheet">
+<link href="../../css/extra.css" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search" />
+</div> <!-- end of book-search-input -->
+
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href="../.." target="_blank" class="custom-link">Numan Documenation</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="../..">Home</a>
+<li class="header">Knowledge Base</li>
+
+<li>
+<a href="../../kb/" class="">About</a>
+</li>
+
+<li class="header">Literature</li>
+
+<li>
+<a href="../" class="">Literature</a>
+</li>
+
+<li>
+<a href="./" class="active">YAGO 4.5</a>
+</li>
+
+<li class="header">Neural Networks</li>
+
+<li>
+<a href="../../nns/" class="">Motivation</a>
+</li>
+
+<li>
+<a href="../../nns/graphs/" class="">Graph Neural Networks</a>
+</li>
+
+<li class="divider"></li>
+
+
+
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
+
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
+
+</nav>
+
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="yago-45-a-large-and-clean-knowldege-base-with-a-rich-taxonomy">YAGO 4.5: A Large and Clean Knowldege Base with a Rich Taxonomy</h1>
+<h2 id="1-introduction">1 INTRODUCTION</h2>
+<h2 id="2-related-work">2 RELATED WORK <recalls related work></h2>
+<ul>
+<li><strong>Related KBs:</strong><br />
+    ConceptNet, BabelNet, DBPedia, Freebase and Wikidata.  </li>
+<li><strong>Related ontologies:</strong><br />
+    Cyc, SUMO, DOLCE, BFO, WordNet and Schema.org.</li>
+</ul>
+<p>We'll select Wikidata and Schema to build our KB.</p>
+<h2 id="3-designing-yago">3 DESIGNING YAGO <discusses design decisions></h2>
+<h3 id="31-design-rationale">3.1 DESIGN RATIONALE</h3>
+<p>We want to have a general, precise and non-redundant upper taxonomy.</p>
+<h3 id="32-design-principles">3.2 DESIGN PRINCIPLES</h3>
+<p>We want an upper taxonomy from Schema and a lower taxonomy from Wikidata, the integration is achieved through these principles:  </p>
+<p><strong>1. PREFER PROPERTIES OVER CLASS MEMBERSHIP</strong><br />
+    We prefer to do (A) -[has property]-&gt; (B)<br />
+    Instead of (A) -[is of type]-&gt; (B)<br />
+        Making A an instance of the B class.  </p>
+<p><strong>2. CHOOSE THE PROPERTY WITH FEWER OBJECTS</strong><br />
+    If we have some property like (C)&lt;-(A)-&gt;(B)<br />
+    we prefer to do the inverse, (C)-&gt;(A) and (B)-&gt;(A)<br />
+    this way we have less objects per property.  </p>
+<p><strong>3. THE UPPER TAXONOMY EXISTS TO DEFINE FORMAL PROPERTIES THAT WILL BE POPULATED</strong><br />
+    All classes of upper taxonomy must define formal properties. Both the domain and range of these properties have to be upper-level classes. This makes the upper taxonomy a self contained schema so you don't need to search for property definitions in the lower classes.  </p>
+<p><strong>4. THE LOWER TAXONOMY EXISTS TO CONVEY HUMAN-INTELLIGIBLE INFORMATION ABOUT ITS INSTANCES IN A NON-REDUNDANT FORM</strong><br />
+    This targets mainly human users. The design principle tells us to remove classes that add no information over upper taxonomy classes, merge classes that are hard to distinguish and remove classes that aren't populated.  </p>
+<h3 id="33-upper-taxonomy">3.3 UPPER TAXONOMY</h3>
+<p>How was the upper taxonomy built?  </p>
+<h4 id="upper-level-classes">UPPER-LEVEL CLASSES</h4>
+<p>We started with the taxonomy of schema.org, excluding the classes: Action, BioChemEntity and MedicalEntity.<br />
+All top-level classes are disjoint except places/organizations and products/creative works.  </p>
+<h4 id="fictional-entities">FICTIONAL ENTITIES</h4>
+<p>We add a class yago:FictionalEntity as a subclass of schema:Thing, by defining properties like "createdBy" and "appearsIn" its existence can be justified under Design Principle 1.<br />
+Fictional entities are not disjoint from any other classes since everything can be fictional (Like a place, a person, an invention, etc.).  </p>
+<h4 id="intangibles">INTANGIBLES</h4>
+<p>We added the classes Award, Gender and BeliefSystem, all subclasses of schema:Intangible. Other subclasses of schema:Intangible were removed under Design Principle 3.  </p>
+<h4 id="places">PLACES</h4>
+<p>Schema's taxonomy on places is very web page oriented, some classes don't define properties that could be populated so they're removed under Design Priniciple 3.<br />
+Then, a new taxonomy was manually created like yago:HumanMadePlace and yago:AstronomicalObject.  </p>
+<h3 id="34-lower-taxonomy">3.4 LOWER TAXONOMY</h3>
+<p><strong>MAPPING TO WIKIDATA</strong></p>
+<p>The lower levels of YAGO 4.5's taxonomy comes from Wikidata<br />
+This mapping can give rise to the following situations:  </p>
+<p><strong>ONE-TO-ONE MAPPING</strong><br />
+    (Upper class) -&gt; (Wikidata class)  </p>
+<p><strong>ONE-TO-MANY MAPPING</strong><br />
+    (Wikidata class) &lt;- (Upper class) -&gt; (Wikidata class)  </p>
+<p><strong>ONE-TO-NONE MAPPING</strong><br />
+    This didn't happen in YAGO 4, it is now used for classes with a convoluted taxonomy in Wikidata<br />
+    It can be used for one of the following classes:<br />
+- <strong>schema:Thing</strong><br />
+            In YAGO 4 this used to be mapped to entity, which resulted in 1 million direct instances of schema:Thing. This goes against Design Principle 3. So now we only accept entities that fall into one of the manually approved subclasses of Thing.  </p>
+<ul>
+<li>
+<p><strong>schema:Place</strong><br />
+            Wikidata's taxonomy for places is highly convoluted, is difficult to tell apart terrain, geographical location, geographical region, geographical area and location.  </p>
+</li>
+<li>
+<p><strong>schema:Intangible</strong><br />
+            Likewise, are highly convoluted: class, process or role. It's hard to establish properties to adhere to Design Principle 3.  </p>
+</li>
+</ul>
+<h3 id="35-instances">3.5 INSTANCES</h3>
+<p><strong>Identifiers</strong><br />
+Every instance is automatically asigned a readable name, normally we use the title of the Wikipedia page.<br />
+If there's none, we use the enlish label and concatenate it to the Wikidata Q-id.<br />
+If there's none, we use a label that contains legal characters concatenated with the Wikidata id.  </p>
+<p><strong>Instances vs. Classes</strong><br />
+Wikidata contains items that are both Instances and Classes. Because of our discussion in 3.4, these items would be considered classes. At the same time, if we wanted to say that Eleanor Roosevelt spoke english, we would make a statement about the class, this statement is allowed thanks to OWL 2 by a mechanism called "punning".</p>
+<h2 id="4-implementing-yago">4 IMPLEMENTING YAGO <discusses implementation issues></h2>
+<h3 id="infrastructure">Infrastructure</h3>
+<p>YAGO 4 was written in Rust but was hard to mantain so we moved to python.</p>
+<h3 id="data-formats">Data formats</h3>
+<p>(Section that discusses formats of the project like BZ2, GZIP, NT, etc.)</p>
+<h3 id="data-processing">Data processing:</h3>
+<p>All of this happens in a Unix machine with 90 CPUs and 800Gb of RAM
+Steps:</p>
+<h4 id="1-create-schema-time-1s">1.- Create schema | time &lt; 1s</h4>
+<pre><code>  Loads the schema
+</code></pre>
+<h4 id="2-create-taxonomy-time-4hr">2.- Create taxonomy | time = 4hr</h4>
+<pre><code>  Parses wikidata into classes and constructs a loop-free taxonomy
+</code></pre>
+<h4 id="3-create-facts-time-4hr">3.- Create facts | time = 4hr</h4>
+<pre><code>  Parses wikidata into facts in the form of a YAGO predicate
+</code></pre>
+<h4 id="4-type-check-facts-time-15hr">4.- Type-check facts | time = 1.5hr</h4>
+<pre><code>  The previous step outputed a list of facts, this list is now loaded into memory and each one is type-checked
+</code></pre>
+<h4 id="5-create-ids-time-1hr">5.- Create ids | time = 1hr</h4>
+<pre><code>  All type-checked facts are now mapped to a YAGO name
+</code></pre>
+<h4 id="6-create-statistics-time-1hr">6.- Create statistics | time = 1hr</h4>
+<pre><code>  Counts things like number of instances per class, facts per predicate, etc.
+</code></pre>
+<p>| Total time = 12hr</p>
+<h2 id="5-result">5 RESULT <presents the resulting KB></h2>
+<h3 id="51-resource">5.1 RESOURCE</h3>
+<p><strong>Size</strong><br />
+    YAGO has less predicates than wikidata deliberately according to Design Principle 3 but it does cover the 100 most frequent predicates
+    YAGO 4.5 is smaller than YAGO 4 because of the removal of inverse properties according to Design Principle 2
+<strong>Data Format:</strong><br />
+YAGO is split into these files:<br />
+  - <strong>Schema:</strong> Upper taxonomy, property definitions<br />
+  - <strong>Taxonomy:</strong> Hierarchies between classes as (a)-[is]-&gt;(b), better explained in General analysis.txt<br />
+  - <strong>Facts:</strong> All facts about entities that have an english wikipedia page<br />
+  - <strong>Beyond Wikipedia:</strong> Facts about entities that don't have that<br />
+  - <strong>Meta:</strong> Temporal annotations  </p>
+<h3 id="52-evaluation">5.2 EVALUATION</h3>
+<p>table 2:
+| Criterion        | Operationalization | Wikidata | YAGO 4 | YAGO 4.5 |
+| :---             |    :---                     | ---: | ---: | ---:|
+| Consistency      | Absence of contradictions   | no   | yes  | yes |
+| Complexity       | Top-level classes           | 41   | 2714 | 9   |
+|                  | Number of paths to root     | 44   | 1.1  | 2.3 |
+| Modularity       | Disjointness axioms         | 0    | 18   | 24  |
+| Concisness       | Taxonomic loops             | 62   | 0    | 0   |
+|                  | Redundant taxonomic loops   | 377k | 1216 | 0   |
+|                  | Reduntant relations         | 118  | 6    | 0   |
+|                  | Classes without instances   | 2.6M | 73   | 0   |
+| Understandabilty | Human-readable names        | 0%   | 89%  | 91% |
+| Coverage         | Classes per instance        | 8.4  | 3.6  | 7.8 |
+|                  | Facts per instance          | 4.8  | 5.1  | 2.7 |</p>
+<h4 id="intrinsic-evaluation">Intrinsic evaluation</h4>
+<p>It is measured in this parameters:<br />
+- <strong>Consistency:</strong> Absence of logical contradictions<br />
+- <strong>Complexity:</strong> How complicated the ontology is, it's meassured by the number of top classes (i.e. All direct subclasses of schema:Thing) and the average number of paths from an instance to the taxonomy root<br />
+- <strong>Modularity:</strong> How much is the ontology composed of discrete subsets, in this case, the subsets are disjoint classes (Not sure what a disjoint class is)<br />
+- <strong>Conciseness:</strong> Absence of redundancies<br />
+- <strong>Understandability:</strong> How comprehensible the ontology is, measured by the percentage of identifiers that have a human-raedable name<br />
+- <strong>Coverage:</strong> The degree to which the ontology covers a certain domain of knowledge, measured by the number of classes and facts per instance  </p>
+<h4 id="extrinsic-evaluation">Extrinsic evaluation</h4>
+<p>We've attempted to solve ambiguous concepts.<br />
+For each entity, it collects all candidates that share a label. Then it uses end-to-end entity linking system ExtEnD [6] that was pretrained on LongFormer [8].</p>
+<h3 id="53-applications">5.3 APPLICATIONS</h3>
+<h4 id="-benchmarking">- BENCHMARKING</h4>
+<p>YAGO has been widely used as benchmark datasets in entity type prediction [29] and link prediction [24]</p>
+<h4 id="-yago-in-information-retrieval">- YAGO IN INFORMATION RETRIEVAL</h4>
+<p>For systems of information retrieval, YAGO has resulted useful in aiding with understanding queries and documents beyond the scope of word tokens and plain texts.<br />
+It can help in two ways: </p>
+<ul>
+<li>
+<p><strong>Document retrieval:</strong><br />
+Finding relevant textual resources for a given user query </p>
+</li>
+<li>
+<p><strong>Entity retrieval:</strong><br />
+Retrieves all entities from a document </p>
+</li>
+</ul>
+<h4 id="other-applications">OTHER APPLICATIONS</h4>
+<p>YAGO has been cited more tan 10,000 times according to Google Scholar </p>
+<h4 id="availability">AVAILABILITY</h4>
+<p>Mentions YAGO's website and github page </p>
+<h2 id="6-conclusion">6 CONCLUSION</h2>
+
+
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
+
+<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+<ul class="search-results-list"></ul>
+
+</div> <!-- end of has-results -->
+<div class="no-results">
+
+<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
+
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../../js/main.js"></script>
+<script src="../../search/main.js"></script>
+<script src="../../js/gitbook.min.js"></script>
+<script src="../../js/theme.min.js"></script>
+</body>
+</html>
