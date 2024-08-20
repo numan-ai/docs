@@ -24,8 +24,8 @@ nav:
     - Literature: literature/index.md
     - YAGO 4.5: literature/yago45.md
   - Neural Networks:
-    - Motivation
-    - Graph Neural Networks
+    - Motivation: nns/index.md
+    - Graph Neural Networks: nns/graphs.md
 
 
 extra_css:
